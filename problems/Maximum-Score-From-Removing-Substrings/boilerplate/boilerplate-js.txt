@@ -1,0 +1,10 @@
+/**
+ * @param {string s, number x, number y} s, x, y
+ * @returns {number}
+ */
+
+
+let maxScore = function (s, x, y) {
+    // Implementation goes here
+    
+}

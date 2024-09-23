@@ -1,0 +1,10 @@
+/**
+ * @param {number[] v} v
+ * @returns {number}
+ */
+
+
+let majorityElement = function (v) {
+    // Implementation goes here
+    
+}

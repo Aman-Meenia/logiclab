@@ -1,0 +1,4 @@
+int majorityElement(vector<int> v) {
+    // Implementation goes here
+    
+}

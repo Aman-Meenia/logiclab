@@ -1,0 +1,4 @@
+function longestSubarray(v: number[]) :number {
+    // Implementation goes here
+    
+}

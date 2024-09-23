@@ -1,0 +1,582 @@
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongodb:/data/judge/db
+    ports:
+      - 27017:27017
+    networks:
+      - app-network
+
+  # api:
+  #   build: .
+  #   container_name: logiclab
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - mongodb
+  #   environment:
+  #     MONGODB_URI: mongodb://mongodb:27017
+  #     DB_NAME: judge
+  #   networks:
+  #     - app-network
+
+  db:
+    image: postgres:alpine
+    container_name: db
+    restart: always
+    env_file: judge0.conf
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: none
+    networks:
+      - app-network
+
+  server:
+    image: judge0/judge0:1.13.1
+    volumes:
+      - ./judge0.conf:/judge0.conf:ro
+      - ./problems:/problems:ro
+    ports:
+      - "2358:2358"
+    privileged: true
+    restart: always
+    logging:
+      driver: none
+    networks:
+      - app-network
+
+  workers:
+    image: judge0/judge0:1.13.1
+    command: ["./scripts/workers"]
+    volumes:
+      - ./judge0.conf:/judge0.conf:ro
+      - ./problems:/problems:ro
+    privileged: true
+    restart: always
+    logging:
+      driver: none
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7.2.4
+    container_name: redis
+    command:
+      [
+        "bash",
+        "-c",
+        'docker-entrypoint.sh --appendonly no --requirepass "$$REDIS_PASSWORD"',
+      ]
+    env_file: judge0.conf
+    restart: always
+    ports:
+      - "6379:6379"
+    logging:
+      driver: none
+    volumes:
+      - cache:/data
+    networks:
+      - app-network
+
+      # Redis insight
+  redis-insight:
+    image: redis/redisinsight:latest
+    restart: always
+    ports:
+      - "5540:5540"
+    # volumes:
+    # - redis-insight:/data
+
+volumes:
+  mongodb: {}
+  postgres_data: {}
+  cache:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
+# version: "3.9"
+#
+# services:
+#   mongodb:
+#     container_name: mongodb
+#     image: mongo:latest
+#     restart: always
+#     volumes:
+#       - mongodb:/data/db # Changed from /data/judge/db to /data/db
+#     ports:
+#       - 27020:27017
+#   # api:
+#   #   build: .
+#   #   container_name: logiclab
+#   #   restart: always
+#   #   ports:
+#   #     - 3000:3000
+#   #   volumes:
+#   #     - .:/app # Used to reflect relatime changes
+#   #     - /app/node_modules
+#   #   depends_on:
+#   #     - mongodb
+#   #   environment:
+#   #     MONGODB_URI: mongodb://mongodb:27017
+#   #     DB_NAME: judge
+#
+#   db:
+#     image: postgres:alpine
+#     container_name: db
+#     restart: always
+#     env_file: judge0.conf
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"] # Added extra $ for escaping
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+#     logging:
+#       driver: none
+#
+#   server:
+#     image: judge0/judge0:1.13.1
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#     ports:
+#       - "2358:2358"
+#     privileged: true
+#     restart: always
+#     logging:
+#       driver: none
+#
+#   workers:
+#     image: judge0/judge0:1.13.1
+#     command: ["./scripts/workers"]
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#     privileged: true
+#     restart: always
+#     logging:
+#       driver: none
+#
+#   redis:
+#     image: redis:7.2.4
+#     command: [
+#         "bash",
+#         "-c",
+#         'docker-entrypoint.sh --appendonly no --requirepass "$${REDIS_PASSWORD}"', # Added extra $ for escaping
+#       ]
+#     env_file: judge0.conf
+#     restart: always
+#     ports:
+#       - "6379:6379"
+#     logging:
+#       driver: none
+#     volumes:
+#       - cache:/data
+#
+# volumes:
+#   postgres_data:
+#   mongodb:
+#   cache:
+#     driver: local
+# # version: "3.9"
+#
+# version: "3.5"
+#
+# services:
+#   mongodb:
+#     container_name: mongodb
+#     image: mongo:latest
+#     restart: always
+#     volumes:
+#       - mongodb:/data/judge/db
+#     ports:
+#       - 27020:27017
+#
+#   # Next Auth Not Working in Docker
+#
+#   # app:
+#   #   build:
+#   #     context: .
+#   #     dockerfile: Dockerfile
+#   #   container_name: app-container
+#   #   environment:
+#   #     - DATABASE_URL=postgresql://postgres:supersecurepassword@db:5432/algo-arena
+#   #   ports:
+#   #     - '3000:3000'  # Next.js app
+#   #   depends_on:
+#   #     db:
+#   #       condition: service_healthy
+#   #   volumes:
+#   #     - type: bind
+#   #       source: .
+#   #       target: /usr/src/app
+#
+#   db:
+#     image: postgres:alpine
+#     container_name: db
+#     restart: always
+#     env_file: judge0.conf
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+#     logging:
+#       driver: none
+#
+#   server:
+#     image: judge0/judge0:1.13.1
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#       - type: bind
+#         source: "##YOUR_LOCAL_PATH_TO_PROBLEMS_DIR## [repo]/apps/problems"
+#         target: /dev/problems
+#     ports:
+#       - "2358:2358"
+#     privileged: true
+#     restart: always
+#     logging:
+#       driver: none
+#
+#   workers:
+#     image: judge0/judge0:1.13.1
+#     command: ["./scripts/workers"]
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#       - type: bind
+#         source: "##YOUR_LOCAL_PATH_TO_PROBLEMS_DIR## [repo]/apps/problems"
+#         target: /dev/problems
+#     privileged: true
+#     restart: always
+#     logging:
+#       driver: none
+#
+#   redis:
+#     image: redis:7.2.4
+#     command:
+#       [
+#         "bash",
+#         "-c",
+#         'docker-entrypoint.sh --appendonly no --requirepass "$$REDIS_PASSWORD"',
+#       ]
+#     env_file: judge0.conf
+#     restart: always
+#     ports:
+#       - "6379:6379"
+#     logging:
+#       driver: none
+#     volumes:
+#       - cache:/data
+# volumes:
+#   postgres_data:
+#   mongodb: {}
+#   cache:
+#     driver: local
+#
+#
+# services:
+# mongodb:
+#   container_name: mongodb
+#   image: mongo:latest
+#   restart: always
+#   volumes:
+#     - mongodb:/data/judge/db
+#   ports:
+#     - 27020:27017
+#
+#   api:
+#     build: .
+#     container_name: logiclab
+#     restart: always
+#     ports:
+#       - 3000:3000
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       - mongodb
+#     environment:
+#       MONGODB_URI: mongodb://mongodb:27017
+#       DB_NAME: judge
+#
+#   db:
+#     image: postgres:alpine
+#     container_name: db
+#     restart: always
+#     env_file: judge0.conf
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+#     logging:
+#       driver: none
+#
+#   server:
+#     image: judge0/judge0:1.13.1
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#       - ./problems:/problems:ro
+#     ports:
+#       - "2358:2358"
+#     privileged: true
+#     restart: always
+#     logging:
+#       driver: none
+#
+#   workers:
+#     image: judge0/judge0:1.13.1
+#     command: ["./scripts/workers"]
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#       - ./problems:/problems:ro
+#     privileged: true
+#     restart: always
+#     logging:
+#       driver: none
+#
+#   redis:
+#     image: redis:7.2.4
+#     command:
+#       [
+#         "bash",
+#         "-c",
+#         'docker-entrypoint.sh --appendonly no --requirepass "$$REDIS_PASSWORD"',
+#       ]
+#     env_file: judge0.conf
+#     restart: always
+#     ports:
+#       - "6379:6379"
+#     logging:
+#       driver: none
+#     volumes:
+#       - cache:/data
+#
+#       # Redis insight
+#   redis-insight:
+#     image: redis/redisinsight:latest
+#     restart: always
+#     ports:
+#       - "5540:5540"
+#     # volumes:
+#     # - redis-insight:/data
+#
+# volumes:
+#   mongodb: {}
+#   postgres_data: {}
+#   cache:
+#     driver: local
+# version: "3.9"
+#
+# services:
+#   mongodb:
+#     container_name: mongodb
+#     image: mongo:latest
+#     restart: always
+#     volumes:
+#       - mongodb:/data/judge/db
+#     ports:
+#       - 27020:27017
+#
+#   # Node API service
+#   api:
+#     build: .
+#     container_name: judge
+#     restart: always
+#     ports:
+#       - 3000:3000
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       - mongodb
+#     environment:
+#       MONGODB_URI: mongodb://mongodb:27017
+#       DB_NAME: judge
+#
+#   db:
+#     image: postgres:alpine
+#     container_name: db
+#     restart: always
+#     env_file: judge0.conf
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+#     logging:
+#       driver: none
+#
+#   server:
+#     image: judge0/judge0:1.13.1
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#       # - type: bind
+#       #   source: ./problmes/main.c
+#       #   target: .problems
+#     ports:
+#       - "2358:2358"
+#     privileged: true
+#     restart: always
+#     logging:
+#       driver: none
+#
+#   workers:
+#     image: judge0/judge0:1.13.1
+#     command: ["./scripts/workers"]
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#       # - type: bind
+#       #   source: ./problmes/main.c
+#       #   target: .problems
+#       #   source: "##YOUR_LOCAL_PATH_TO_PROBLEMS_DIR## [repo]/apps/problems"
+#       #   target: /dev/problems
+#     privileged: true
+#     restart: always
+#     logging:
+#       driver: none
+#
+#   redis:
+#     image: redis:7.2.4
+#     command:
+#       [
+#         "bash",
+#         "-c",
+#         'docker-entrypoint.sh --appendonly no --requirepass "$$REDIS_PASSWORD"',
+#       ]
+#     env_file: judge0.conf
+#     restart: always
+#     ports:
+#       - "6379:6379"
+#     logging:
+#       driver: none
+#     volumes:
+#       - cache:/data
+#
+# volumes:
+#   mongodb: {}
+#   postgres_data: {}
+#   # cache: {}
+#   cache:
+#     driver: local
+# version: "3.9"
+#
+# x-logging: &default-logging
+#   logging:
+#     driver: json-file
+#     options:
+#       max-size: 100M
+#
+# services:
+#   mongodb:
+#     container_name: mongodb
+#     image: mongo:latest
+#     restart: always
+#     volumes:
+#       - mongodb:/data/judge/db
+#     ports:
+#       - 27020:27017
+#     networks:
+#       - app-network
+#
+#   api:
+#     build: .
+#     container_name: logiclab
+#     restart: always
+#     ports:
+#       - 3000:3000
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       - mongodb
+#       - server
+#     environment:
+#       MONGODB_URI: mongodb://mongodb:27017
+#       DB_NAME: judge
+#       JUDGE0_URL: http://server:2358
+#     networks:
+#       - app-network
+#
+#   server:
+#     image: judge0/judge0:1.13.1
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#       - ./box:/box
+#     ports:
+#       - "2358:2358"
+#     privileged: true
+#     <<: *default-logging
+#     restart: always
+#     networks:
+#       - app-network
+#
+#   workers:
+#     image: judge0/judge0:1.13.1
+#     command: ["./scripts/workers"]
+#     volumes:
+#       - ./judge0.conf:/judge0.conf:ro
+#       - ./box:/box
+#     privileged: true
+#     <<: *default-logging
+#     restart: always
+#     networks:
+#       - app-network
+#
+#   db:
+#     image: postgres:16.2
+#     env_file: judge0.conf
+#     volumes:
+#       - data:/var/lib/postgresql/data/
+#     <<: *default-logging
+#     restart: always
+#     networks:
+#       - app-network
+#
+#   redis:
+#     image: redis:7.2.4
+#     command:
+#       [
+#         "bash",
+#         "-c",
+#         'docker-entrypoint.sh --appendonly no --requirepass "$$REDIS_PASSWORD"',
+#       ]
+#     env_file: judge0.conf
+#     <<: *default-logging
+#     restart: always
+#     networks:
+#       - app-network
+#
+# volumes:
+#   mongodb: {}
+#   data: {}
+#
+# networks:
+#   app-network:
+#     driver: bridge

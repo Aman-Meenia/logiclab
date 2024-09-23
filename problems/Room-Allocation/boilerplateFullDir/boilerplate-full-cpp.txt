@@ -1,0 +1,24 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Add user function here
+
+int  main(){
+
+int tc= //Enter the exact testcase number ;
+while(tc--){
+int n_1; 
+cin >> n_1; 
+int m_1; 
+cin >> m_1; 
+vector<vector<int>> intervals (n_1,vector<int>(m_1)); 
+
+int ans = roomAllocation(intervals);
+
+cout<<ans<<endl;
+cout<<"$$$"<<endl;
+
+}
+return 0;
+}

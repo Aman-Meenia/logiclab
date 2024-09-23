@@ -1,0 +1,4 @@
+int countSubarray(vector<int> v) {
+    // Implementation goes here
+    
+}

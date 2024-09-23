@@ -1,0 +1,10 @@
+/**
+ * @param {number[] v} v
+ * @returns {number}
+ */
+
+
+let longestSubarray = function (v) {
+    // Implementation goes here
+    
+}

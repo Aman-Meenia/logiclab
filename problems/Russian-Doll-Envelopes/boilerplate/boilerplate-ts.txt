@@ -1,0 +1,4 @@
+function maxEnvelopes(envelopes: number[][]) :number {
+    // Implementation goes here
+    
+}

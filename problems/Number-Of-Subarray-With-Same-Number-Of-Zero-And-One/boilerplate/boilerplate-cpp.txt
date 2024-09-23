@@ -1,0 +1,4 @@
+int numOfSubarray(vector<int> v) {
+    // Implementation goes here
+    
+}

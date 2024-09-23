@@ -1,0 +1,4 @@
+function majorityElement(v: number[]) :number {
+    // Implementation goes here
+    
+}

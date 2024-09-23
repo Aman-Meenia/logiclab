@@ -1,0 +1,10 @@
+/**
+ * @param {number[] v, number target} v, target
+ * @returns {number[]}
+ */
+
+
+let twoSum = function (v, target) {
+    // Implementation goes here
+    
+}

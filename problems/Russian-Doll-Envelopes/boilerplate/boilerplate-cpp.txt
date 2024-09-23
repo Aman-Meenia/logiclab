@@ -1,0 +1,4 @@
+int maxEnvelopes(vector<vector<int>> envelopes) {
+    // Implementation goes here
+    
+}

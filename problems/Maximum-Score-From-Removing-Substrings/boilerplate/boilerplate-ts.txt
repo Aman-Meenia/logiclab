@@ -1,0 +1,4 @@
+function maxScore(s: string, x: number, y: number) :number {
+    // Implementation goes here
+    
+}

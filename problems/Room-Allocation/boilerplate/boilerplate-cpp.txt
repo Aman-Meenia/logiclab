@@ -1,0 +1,4 @@
+int roomAllocation(vector<vector<int>> intervals) {
+    // Implementation goes here
+    
+}

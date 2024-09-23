@@ -1,0 +1,4 @@
+function numOfSubarray(v: number[]) :number {
+    // Implementation goes here
+    
+}

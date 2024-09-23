@@ -1,0 +1,4 @@
+function roomAllocation(intervals: number[][]) :number {
+    // Implementation goes here
+    
+}

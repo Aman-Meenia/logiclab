@@ -1,0 +1,10 @@
+/**
+ * @param {number[][] intervals} intervals
+ * @returns {number}
+ */
+
+
+let roomAllocation = function (intervals) {
+    // Implementation goes here
+    
+}

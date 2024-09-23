@@ -1,0 +1,10 @@
+contestName: Weekly Contest 1
+description: Contest Description
+contestCreator: Aman Meenia
+startTime: 2024-07-14T14:30:00.000Z
+endTime: 2024-07-14T16:00:00.000Z
+problem1: Two-Sum  
+problem2: Number-Of-Subarray-With-Same-Number-Of-Zero-And-One
+problem3: Longest-Subarray-With-Equal-Number-Of-Zeros-And-Ones
+problem4: Maximum-Score-From-Removing-Substrings 
+

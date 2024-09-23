@@ -1,0 +1,4 @@
+function twoSum(v: number[], target: number) :number[] {
+    // Implementation goes here
+    
+}

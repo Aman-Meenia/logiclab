@@ -1,0 +1,29 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Add user function here
+
+int  main(){
+
+int tc= //Enter the exact testcase number ;
+while(tc--){
+int size_1; 
+cin >> size_1; 
+vector<int> v(size_1); 
+
+  for(int i = 0; i < size_1; i++){
+    cin >> v[i];
+  } 
+int target; 
+cin >> target; 
+
+vector<int> ans = twoSum(v ,target);
+
+cout<<ans.size()<<endl; 
+for(int i = 0; i < ans.size(); i++) {cout<<ans[i]<<" ";} cout<<endl; 
+cout<<"$$$"<<endl;
+
+}
+return 0;
+}

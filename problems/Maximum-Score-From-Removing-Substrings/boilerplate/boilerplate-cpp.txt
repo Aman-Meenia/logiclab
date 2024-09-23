@@ -1,0 +1,4 @@
+int maxScore(string s, int x, int y) {
+    // Implementation goes here
+    
+}
