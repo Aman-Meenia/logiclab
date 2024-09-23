@@ -1,11 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { CodeIcon, LightbulbIcon } from "lucide-react";
 import { TbFileDescription } from "react-icons/tb";
 import ProblemRenderer from "./ProblemRenderer";
 import SubmissionTable from "./SubmissionTable";
+import axios from "axios";
+import { ProblemContext } from "@/store/ProblemContextProvider";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 type optionsType = "Description" | "Submissions" | "Solution";
+export type submissionType = {
+  language: string;
+  time: string;
+  memory: string;
+  status: string;
+  createdAt: string;
+};
 
 const ProblemHeader = ({
   problemDescription,
@@ -13,12 +24,52 @@ const ProblemHeader = ({
   problemDescription: string;
 }) => {
   const [options, setOptions] = useState<optionsType>("Description");
+  const [submissions, setSubmissions] = useState<submissionType[] | null>(null);
+  const [error, setError] = useState(false);
+
+  const { problemDetails } = useContext(ProblemContext);
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState(false);
+
+  const domain = process.env.NEXT_PUBLIC_DOMAIN;
+  const fetchSubmissions = async () => {
+    const problemId = problemDetails?._id;
+    const userId = session?.user?._id;
+    if (!userId) {
+      toast.error("Login to see submissions", {});
+      return;
+    }
+    if (!problemId || !userId) {
+      setError(true);
+      return;
+    }
+
+    setLoading(true);
+    await axios
+      .post(`${domain}/api/submissions`, {
+        problemId,
+        userId,
+      })
+      .then((res) => {
+        if (res?.data?.success === "true") {
+          const response: submissionType[] = res?.data?.messages[0];
+          setSubmissions(response);
+        } else {
+          toast.error("Unable to fetch submissions");
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const handleSetSubmissions = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     e.preventDefault();
     setOptions("Submissions");
+    fetchSubmissions();
   };
   const handleSetDescription = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -62,8 +113,12 @@ const ProblemHeader = ({
         <ProblemRenderer problemDescription={problemDescription} />
       ) : options === "Solution" ? (
         <div className="text-lg"> Currently solutions are not avaliable </div>
+      ) : error ? (
+        <div>
+          <h1>Login to see submissions</h1>
+        </div>
       ) : (
-        <SubmissionTable />
+        <SubmissionTable submissions={submissions} loading={loading} />
       )}
     </>
   );

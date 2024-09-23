@@ -10,45 +10,28 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-
-type StatusEntry = {
-  language: string;
-  time: string;
-  memory: string;
-  status: string;
-  createdAt: string;
-};
-
-const statusData: StatusEntry[] = [
-  {
-    language: "cpp",
-    status: "Wrong Answer",
-    time: "0.011",
-    memory: "3432",
-    createdAt: "2024-09-21T12:39:10.483Z",
-  },
-  {
-    language: "cpp",
-    status: "Wrong Answer",
-    time: "0.02",
-    memory: "3240",
-    createdAt: "2024-09-21T12:43:36.108Z",
-  },
-];
+import { submissionType } from "./ProblemHeader";
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case "easy":
+    case "Accepted":
       return "bg-green-500 hover:bg-green-600";
     default:
       return "bg-red-500 hover:bg-red-600";
   }
 };
 
-export default function SubmissionTable() {
-  return (
+export default function SubmissionTable({
+  submissions,
+  loading,
+}: {
+  submissions: submissionType[] | null;
+  loading: boolean;
+}) {
+  return loading ? (
+    <h1>Loading...</h1>
+  ) : submissions ? (
     <div className="container mx-auto py-10 px-4">
-      {/* Large screens: Table view */}
       <div className="hidden md:block">
         <Table>
           <TableHeader>
@@ -61,22 +44,64 @@ export default function SubmissionTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {statusData.map((entry, index) => (
-              <TableRow key={index}>
+            {submissions?.map((entry: submissionType) => (
+              <TableRow key={entry.memory}>
                 <TableCell>{entry.language}</TableCell>
-                <TableCell>{entry.time}</TableCell>
+                <TableCell>{entry.time} ms</TableCell>
                 <TableCell>{entry.memory}</TableCell>
                 <TableCell>
-                  <Badge className={`${getStatusColor(entry.status)}`}>
+                  <Badge className={getStatusColor(entry.status)}>
                     {entry.status}
                   </Badge>
                 </TableCell>
-                <TableCell>{entry.createdAt}</TableCell>
+                <TableCell>{formatDate(entry.createdAt)}</TableCell>
               </TableRow>
             ))}
+            {submissions.length == 0 && (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center text-lg">
+                  No submissions found
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </div>
     </div>
+  ) : (
+    <>
+      <div>
+        <h1> Error while fetching submissions</h1>
+      </div>
+    </>
   );
+}
+function formatDate(isoDateString: string): string {
+  const date = new Date(isoDateString);
+
+  if (isNaN(date.getTime())) {
+    throw new Error("Invalid date string");
+  }
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = months[date.getMonth()];
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${day} ${month} ${hours}:${minutes}`;
 }

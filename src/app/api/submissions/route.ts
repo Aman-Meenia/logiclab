@@ -49,14 +49,16 @@ export async function POST(req: NextRequest) {
     const userSubmissions = await Submission.find({
       userId: new ObjectId(body.userId),
       problemId: new ObjectId(body.problemId),
-    }).select({
-      _id: false,
-      language: true,
-      status: true,
-      memory: true,
-      time: true,
-      createdAt: true,
-    });
+    })
+      .select({
+        _id: false,
+        language: true,
+        status: true,
+        memory: true,
+        time: true,
+        createdAt: true,
+      })
+      .sort({ createdAt: -1 });
 
     const successResponse: responseType = {
       success: "true",
