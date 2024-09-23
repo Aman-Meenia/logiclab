@@ -39,13 +39,6 @@ export const InputSingleVector = (
   inputCode += `int size_${cnt}; \n`;
   inputCode += `cin >> size_${cnt}; \n`;
 
-  // EXTRACT VALUE INSIDE THE VECTOR<>
-  // const vectorDataType = extractValueForSingleVector(dataType);
-  // console.log("vectorDataType is " + vectorDataType);
-
-  // console.log("type is " + typeof dataType);
-  // console.log("data is " + dataType);
-
   // DEFINE VECTOR
   inputCode += `${dataType} ${dataTypeName}(size_${cnt}); \n`;
 
@@ -76,11 +69,18 @@ export const InputMultipleVector = (
 
   let vectorDataType = extractInnermostValue(dataType);
 
-  // console.log("vectorDataType is " + vectorDataType);
-
   // DEFINE VECTOR
 
   inputCode += `${dataType} ${dataTypeName} (n_${cnt},vector<${vectorDataType}>(m_${cnt})); \n`;
+  console.log("inputCode " + inputCode);
+
+  inputCode += `
+for(int i=0; i<n_${cnt}; i++){
+    for(int j=0; j<m_${cnt}; j++){
+cin >>${dataTypeName}[i][j]; 
+    }
+}
+`;
 
   // INPUT VECTOR
   //

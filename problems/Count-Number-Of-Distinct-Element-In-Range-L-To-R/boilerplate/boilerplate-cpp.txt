@@ -1,0 +1,4 @@
+vector<int> distinctElements(vector<int> v, vector<vector<int>> ranges) {
+    // Implementation goes here
+    
+}
