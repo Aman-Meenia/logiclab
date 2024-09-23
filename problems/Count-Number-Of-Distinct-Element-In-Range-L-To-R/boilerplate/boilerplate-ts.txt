@@ -1,0 +1,4 @@
+function distinctElements(v: number[], ranges: number[][]) :number[] {
+    // Implementation goes here
+    
+}

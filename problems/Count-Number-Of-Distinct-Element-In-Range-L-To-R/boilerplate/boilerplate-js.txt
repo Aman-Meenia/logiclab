@@ -1,0 +1,10 @@
+/**
+ * @param {number[] v, number[][] ranges} v, ranges
+ * @returns {number[]}
+ */
+
+
+let distinctElements = function (v, ranges) {
+    // Implementation goes here
+    
+}
