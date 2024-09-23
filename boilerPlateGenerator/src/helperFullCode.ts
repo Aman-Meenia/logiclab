@@ -184,6 +184,7 @@ export class FullBoilerCodeGenerator {
           outputFields[i].type === "vector<vector<long>>" ||
           outputFields[i].type === "vector<vector<long long>>"
         ) {
+          outputCode += `cout<<ans.size()<<" "<<ans[0].size()<<endl; \n`;
           outputCode += `
 for(int i=0; i<ans.size(); i++){
     for(int j=0; j<ans[0].size(); j++){
