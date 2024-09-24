@@ -27,14 +27,14 @@ export async function POST(request: NextRequest) {
   try {
     await dbConnect();
     const data: problemRequestType = await request.json();
-    console.log(data);
+    // console.log(data);
     // Convert defaultTestCase and defaultCode to ObjectId
     data.defaultTestCase = new ObjectId(data.defaultTestCase);
     data.defaultCode = new ObjectId(data.defaultCode);
 
     const zodResponse = problemTypeValidation.safeParse(data);
     if (zodResponse.success === false) {
-      console.log(fromZodError(zodResponse?.error).message);
+      // console.log(fromZodError(zodResponse?.error).message);
       const errorResponse: responseType = {
         message: fromZodError(zodResponse?.error).message,
         success: "false",
@@ -98,8 +98,8 @@ export async function POST(request: NextRequest) {
     };
     return NextResponse.json(successResponse);
   } catch (err: any) {
-    console.log("error ");
-    console.log(err);
+    // console.log("error ");
+    // console.log(err);
 
     const errorResponse: responseType = {
       error: err.message,
@@ -121,7 +121,7 @@ export async function GET(request: NextRequest) {
       start: searchParams.get("start"),
       end: searchParams.get("end"),
     };
-    console.log(queryParams);
+    // console.log(queryParams);
     const start = Number(queryParams.start);
     const end = Number(queryParams.end);
     // console.log("start " + start + " end " + end);
@@ -164,14 +164,14 @@ export async function PATCH(request: NextRequest) {
     // TODO: check that user is a admin or not by checking the secret
     await dbConnect();
     const data: problemRequestType = await request.json();
-    console.log(data);
+    // console.log(data);
     // Convert defaultTestCase and defaultCode to ObjectId
     data.defaultTestCase = new ObjectId(data.defaultTestCase);
     data.defaultCode = new ObjectId(data.defaultCode);
 
     const zodResponse = problemTypeValidation.safeParse(data);
     if (zodResponse.success === false) {
-      console.log(fromZodError(zodResponse?.error).message);
+      // console.log(fromZodError(zodResponse?.error).message);
       const errorResponse: responseType = {
         message: fromZodError(zodResponse?.error).message,
         success: "false",
@@ -216,7 +216,7 @@ export async function PATCH(request: NextRequest) {
     };
     return NextResponse.json(successResponse);
   } catch (err) {
-    console.log("Error in update problem controller " + err);
+    // console.log("Error in update problem controller " + err);
 
     const errResponse: responseType = {
       message: "Internal server error",

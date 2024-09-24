@@ -19,10 +19,10 @@ export async function GET(request: NextRequest, context: any) {
     const { title } = params;
     const problemTitle = title;
     const zodResponse = problemTitleSchema.safeParse({ problemTitle });
-    console.log("title ", title);
+    // console.log("title ", title);
 
     if (zodResponse.success === false) {
-      console.log(fromZodError(zodResponse?.error).message);
+      // console.log(fromZodError(zodResponse?.error).message);
       const errorResponse: responseType = {
         message: fromZodError(zodResponse?.error).message,
         success: "false",
@@ -47,8 +47,8 @@ export async function GET(request: NextRequest, context: any) {
         select: "-_id testCase1 testCase2 testCase3",
       });
 
-    console.log("PROBLEM");
-    console.log(problem);
+    // console.log("PROBLEM");
+    // console.log(problem);
 
     if (!problem) {
       const errorResponse: responseType = {
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest, context: any) {
     };
     return NextResponse.json(successResponse);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     const errorResponse: responseType = {
       message: "Internal server error",
       messages: [{ err: err }],
