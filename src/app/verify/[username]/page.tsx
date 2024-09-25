@@ -33,33 +33,7 @@ const VerifyAccountPage = () => {
     },
   });
 
-  const onSubmit = async (data: { otp: string }) => {
-    // Handle form submission logic here
-    console.log(data);
-    console.log(username);
-    setLoading(true);
-    await axios
-      .post(`${domain}/api/verify-user`, {
-        username: username,
-        otp: data.otp,
-      })
-      .then((res) => {
-        console.log(res.data);
-        if (res.data?.success) {
-          toast.success("Your account verified successfully");
-          router.push(`${domain}/login`);
-        } else {
-          toast.error(res.data?.message);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err.response?.data?.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  const onSubmit = async (data: { otp: string }) => {};
 
   return (
     <>

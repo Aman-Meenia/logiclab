@@ -83,7 +83,7 @@ const RenderTestCaseOutput = ({
       ) : userCodeOutput && userCodeOutput.status === "Wrong Answer" ? (
         <div className="pt-3 pl-3 text-xl text-red-400 ">Wrong Answer</div>
       ) : (
-      <> </>
+        <> </>
       )}
       {userCodeOutput?.status === "Accepted" ||
       userCodeOutput?.status === "Wrong Answer" ? (
@@ -153,7 +153,7 @@ const RenderTestCaseOutput = ({
       ) : userCodeOutput?.status === "Runtime Error (NZEC)" ? (
         <>
           <div className="pt-3 pl-3 text-xl text-red-400 ">Runtime Error</div>
-          <RenderTestCaseInput testCaseInput={CompilationError} />
+          {/* <RenderTestCaseInput testCaseInput={CompilationError} /> */}
         </>
       ) : (
         <div className="pt-3 pl-3 text-l flex">

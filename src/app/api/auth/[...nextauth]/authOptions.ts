@@ -1,8 +1,6 @@
 import { NextAuthOptions } from "next-auth";
-
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import LinkedInProvider from "next-auth/providers/linkedin";
 import CredentialsProvider from "next-auth/providers/credentials";
 import dbConnect from "@/db/dbConnect";
 import bcrypt from "bcryptjs";
@@ -50,12 +48,6 @@ export const authOptions: NextAuthOptions = {
             email: profile.email,
           });
           if (existingUser) return existingUser;
-          console.log("PROFILE ");
-          console.log(profile);
-          // const user = {
-          //   username: "aman",
-          //   email: "aman@gmail.com",
-          // };
           const user = await User.create({
             email: profile.email,
             username: profile.name.replace(/\s/g, "") + Date.now().toString(),
@@ -107,7 +99,6 @@ export const authOptions: NextAuthOptions = {
           if (!isPasswordCorrect) {
             throw new Error("Invalid credentials");
           }
-          console.log(existingUser);
           return existingUser;
         } catch (error: any) {
           throw new Error(error);
@@ -131,8 +122,7 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.image = user?.image;
       }
-      console.log("TOKEN ");
-      console.log(token);
+      // console.log(token);
       return token;
     },
     async session({ session, token }) {

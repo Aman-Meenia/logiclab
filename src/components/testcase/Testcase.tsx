@@ -75,7 +75,6 @@ const Testcase = ({
                 onClick={() => {
                   if (selectedTestcase !== testCase.id) {
                     setSelectedTestCase(testCase.id);
-                    console.log("Case " + testCase.id);
                   }
                 }}
               >

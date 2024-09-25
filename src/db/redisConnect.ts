@@ -1,5 +1,4 @@
 import { Redis } from "ioredis";
-// const Redis = require("ioredis");
 const serviceUri = process.env.AIVEN_REDIS_URI || "";
 const redis = new Redis(serviceUri);
 
@@ -12,7 +11,7 @@ const redis = new Redis(serviceUri);
 //   //   return delay;
 //   // },
 // });
-console.log("<-------------------- REDIS ----------------------->");
+// console.log("<-------------------- REDIS ----------------------->");
 // console.log(redis);
 redis.on("error", (err) => {
   console.error("Redis connection error:", err);
