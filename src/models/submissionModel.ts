@@ -46,11 +46,13 @@ const submissionSchema: mongoose.Schema<SubmissionType> = new mongoose.Schema(
     time: {
       type: String,
       trim: true,
+      default: "N/A",
       required: [true, "Time taken is required"],
     },
     memory: {
       type: String,
       trim: true,
+      default: "N/A",
       required: [true, "Memory used is required"],
     },
     type: {
