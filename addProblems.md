@@ -1,5 +1,6 @@
 // Add problem to db
 
+ts-node problem.ts "../../../problems/Count-Number-Of-Subarray-With-And-Value-Equal-To-k" "secret"
 ts-node problem.ts "../../../problems/Count-Number-Of-Distinct-Element-In-Range-L-To-R" "secret"
 ts-node problem.ts "../../../problems/Longest-Palindrome-Substring" "secret"
 ts-node problem.ts "../../../problems/Room-Allocation" "secret"
