@@ -35,6 +35,16 @@ const CodeEditorHeader = ({
   const { problemSelected } = useContext(ProblemContext);
 
   const runCode = async (flagIs: "run" | "submit") => {
+    if (langName.submitCode !== "cpp") {
+      toast.error("Only C++ is supported for now", {
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
+    }
     if (!problemSelected?.problemTitle) {
       return;
     }
