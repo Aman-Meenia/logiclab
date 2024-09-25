@@ -73,7 +73,7 @@ const CodeEditorHeader = ({
       });
 
     if (response) {
-      for (let i = 1; i <= 6; i++) {
+      for (let i = 1; i <= 10; i++) {
         await new Promise((resolve) => setTimeout(resolve, (5 + i) * 1000));
 
         const res = await axios
@@ -81,6 +81,7 @@ const CodeEditorHeader = ({
             uniqueId: response,
           })
           .then((res) => {
+            // console.log(res.data);
             if (res?.data?.success === "true") {
               if (
                 res?.data?.messages[0]?.status === "Accepted" ||

@@ -25,28 +25,7 @@ const ForgotPasswordPage = () => {
     },
   });
 
-  const onSubmit = async (data: { email: string }) => {
-    setLoading(true);
-    await axios
-      .post(`${domain}/api/forgot-password`, {
-        email: data.email,
-      })
-      .then((res) => {
-        if (res.data?.success) {
-          toast.success("Password reset link sent to your email");
-          form.reset();
-        } else {
-          toast.error(res.data?.message);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err.response?.data?.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  const onSubmit = async (data: { email: string }) => {};
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/db/dbConnect";
-import { z } from "zod";
+import { string, z } from "zod";
 import { fromZodError } from "zod-validation-error";
 import { responseType } from "@/types/problemType";
 import redis from "@/db/redisConnect";
@@ -86,8 +86,8 @@ export async function POST(request: NextRequest) {
         language: parseProblemData.language,
         problemTitle: parseProblemData.problemTitle,
         status: parseProblemData.status,
-        time: parseProblemData.time || "N/A",
-        memory: parseProblemData.memory || "N/A",
+        time: String(parseProblemData.time) || "N/A",
+        memory: String(parseProblemData.memory) || "N/A",
       };
 
       // console.log("<----------------- DBSUBMISSION ----------------->");
@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
       message: "Internal server error ",
       success: "false",
       messages: [{ err: err }],
-      status: 400,
+      status: 500,
     };
     return NextResponse.json(errorResponse);
   }

@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { responseType } from "@/types/problemType";
 import dbConnect from "@/db/dbConnect";
 import Submission from "@/models/submissionModel";
-import { getToken } from "next-auth/jwt";
 import Problem from "@/models/problemModel";
 import mongoose from "mongoose";
 import User from "@/models/UserModel";
+import { getToken } from "next-auth/jwt";
 
 type submissionType = {
   _id: string;
@@ -19,23 +19,17 @@ type submissionType = {
 export async function GET(req: NextRequest) {
   try {
     await dbConnect();
-    const token = await getToken({
-      req: req,
-      secret: process.env.NEXTAUTH_SECRET,
-    });
-    console.log("<_------------------TOKEN--------------------->");
-    // if (!token) {
-    //   const errResponse: responseType = {
-    //     status: 400,
-    //     success: "false",
-    //     message: "Login first to see the submissions",
-    //   };
-    //   return NextResponse.json(errResponse);
-    // }
-    console.log(token);
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    console.log("<------------------TOKEN--------------------->");
-    const userId = "66f253706fdf7623ddfd2025";
+    if (!token || !token?._id) {
+      const errResponse: responseType = {
+        status: 400,
+        success: "false",
+        message: "Login first to see the submissions",
+      };
+      return NextResponse.json(errResponse);
+    }
+    const userId = token._id;
 
     const user = await User.findById(userId);
     if (!user) {

@@ -16,7 +16,6 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Header from "@/components/header/Header";
 
 const ResetPasswordPage = () => {
   const domain = process.env.NEXT_PUBLIC_DOMAIN;
@@ -35,37 +34,7 @@ const ResetPasswordPage = () => {
   const onSubmit = async (data: {
     password: string;
     confirmPassword: string;
-  }) => {
-    if (data.password !== data.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-    console.log("TOken " + token[0]);
-    console.log(typeof token);
-
-    setLoading(true);
-    await axios
-      .put(`${domain}/api/forgot-password`, {
-        token: token[0],
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-      })
-      .then((res) => {
-        if (res.data?.success) {
-          toast.success("Password reset successfully");
-          router.push(`${domain}/login`);
-        } else {
-          toast.error(res.data?.message);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err.response?.data?.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+  }) => {};
 
   return (
     <>
