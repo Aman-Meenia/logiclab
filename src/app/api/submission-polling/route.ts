@@ -27,8 +27,8 @@ const submissionTypeValidation = z
     language: z.enum(diffLang),
     problemTitle: z.string().trim().min(1, "problemTitle is required"),
     status: z.string().trim().min(1, "status is required"),
-    time: z.string().nullable(),
-    memory: z.number().nullable(),
+    time: z.string(),
+    memory: z.string(),
   })
   .strict();
 
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     const parseProblemData = JSON.parse(problemData);
     //TODO: if the error in problem or the all the testcase are evaluated store the submission in database
-    console.log(parseProblemData);
+    // console.log(parseProblemData);
     // if the cnt is not 0 it mean than the problem is not solved yet
 
     if (parseProblemData.cnt === 1) {
@@ -86,12 +86,12 @@ export async function POST(request: NextRequest) {
         language: parseProblemData.language,
         problemTitle: parseProblemData.problemTitle,
         status: parseProblemData.status,
-        time: parseProblemData.time,
-        memory: parseProblemData.memory,
+        time: parseProblemData.time || "N/A",
+        memory: parseProblemData.memory || "N/A",
       };
 
-      console.log("<----------------- DBSUBMISSION ----------------->");
-      console.log(dbSubmission);
+      // console.log("<----------------- DBSUBMISSION ----------------->");
+      // console.log(dbSubmission);
 
       // validate the submission
       const submissionValidation =
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
         };
         return NextResponse.json(errorResponse);
       }
-      console.log(dbSubmission);
+      // console.log(dbSubmission);
 
       await new Submission(dbSubmission).save();
     }
@@ -129,8 +129,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(successResponse);
     // }
   } catch (err) {
-    console.log("Eroor in polling", err);
-    console.log(err);
+    // console.log("Eroor in polling", err);
+    // console.log(err);
     const errorResponse: responseType = {
       message: "Internal server error ",
       success: "false",
