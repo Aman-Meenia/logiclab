@@ -1,0 +1,10 @@
+/**
+ * @param {number[] v, number k} v, k
+ * @returns {number}
+ */
+
+
+let countNumberOfSubarray = function (v, k) {
+    // Implementation goes here
+    
+}

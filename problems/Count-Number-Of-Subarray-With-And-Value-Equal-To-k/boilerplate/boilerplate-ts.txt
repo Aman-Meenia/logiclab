@@ -1,0 +1,4 @@
+function countNumberOfSubarray(v: number[], k: number) :number {
+    // Implementation goes here
+    
+}
