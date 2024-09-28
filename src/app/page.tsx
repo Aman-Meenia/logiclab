@@ -12,7 +12,7 @@ export type problemsType = {
 async function fetchProblems() {
   const domain = process.env.NEXT_PUBLIC_DOMAIN;
   const res = await fetch(`${domain}/api/problem?start=1&end=100`, {
-    next: { revalidate: 3600 },
+    next: { revalidate: 10 },
   });
 
   if (!res.ok) {

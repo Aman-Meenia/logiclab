@@ -1,8 +1,8 @@
-# Count Number Of Subarray With Sum Less than Or Equal To Zero
+# Count Number Of Subarray With Sum Less than Or Equal To K
 
 &nbsp;
 
-#### Given an array arr[] of size n containing 0 and 1 only. The problem is to count the subarrays with sum less than 0.
+#### Given an array arr[] of size n. The problem is to count the subarrays with sum less than or equal to k.
 
 &nbsp;
 
@@ -21,7 +21,7 @@ arr = [-1, -2, 1, 2 ,-3]
 **Output**
 
 ```
-11
+6
 ```
 
 &nbsp;
@@ -41,7 +41,7 @@ arr = [3,-1,3,9,-8,1,-12,1,-3,4,-1]
 **Output**
 
 ```
-42
+55
 ```
 
 &nbsp;
@@ -61,7 +61,7 @@ arr = [1,1,1,-1,1,1]
 **Output**
 
 ```
-3
+11
 ```
 
 &nbsp;
@@ -72,8 +72,8 @@ arr = [1,1,1,-1,1,1]
 
 - 1 <= arr.length <= 10^5
 
-  &nbsp;
+&nbsp;
 
-- -10^5 <= arr[i] <= 10^5
+- -10^9 <= arr[i] <= 10^9
 
-  &nbsp;
+&nbsp;
