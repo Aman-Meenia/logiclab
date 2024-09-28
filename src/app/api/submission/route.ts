@@ -109,9 +109,9 @@ export async function POST(request: NextRequest) {
       "//Enter the exact testcase number",
       `${testCaseSize}`,
     );
-    console.log("<-------------FULL CODE START ------------------->");
-    console.log(fullCode.code);
-    console.log("<-------------FULL CODE END ------------------->");
+    // console.log("<-------------FULL CODE START ------------------->");
+    // console.log(fullCode.code);
+    // console.log("<-------------FULL CODE END ------------------->");
 
     // Make the judge0 call
     const language_id = languageCode.get(body.language);

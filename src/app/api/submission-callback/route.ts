@@ -20,11 +20,10 @@ const convertBase64ToUtf8 = (str: string): string => {
 
 export async function PUT(request: NextRequest) {
   try {
-    console.log("--------------------------Start---------------------------");
-
-    console.log("Judge 0 callback called");
+    // console.log("--------------------------Start---------------------------");
+    // console.log("Judge 0 callback called");
     const response = await request.json();
-    console.log(response);
+    // console.log(response);
     const token = response.token;
 
     const compileOutput = response?.compile_output;
@@ -33,15 +32,15 @@ export async function PUT(request: NextRequest) {
     let convertedComplieOutput = "";
     if (compileOutput) {
       convertedComplieOutput = convertBase64ToUtf8(compileOutput);
-      console.log("Compilation output");
-      console.log(convertedComplieOutput);
+      // console.log("Compilation output");
+      // console.log(convertedComplieOutput);
     }
 
     let convertedTLEMessage = "";
     if (TLEmessage) {
       convertedTLEMessage = convertBase64ToUtf8(TLEmessage);
-      console.log("Converted TLE MESSAGE -------->");
-      console.log(convertedTLEMessage);
+      // console.log("Converted TLE MESSAGE -------->");
+      // console.log(convertedTLEMessage);
     }
 
     const stdout = response?.stdout;
@@ -49,8 +48,8 @@ export async function PUT(request: NextRequest) {
     let convertedStdout = "";
     if (stdout) {
       convertedStdout = convertBase64ToUtf8(stdout);
-      console.log("Stdout output");
-      console.log(convertedStdout);
+      // console.log("Stdout output");
+      // console.log(convertedStdout);
     }
 
     if (!token) {
@@ -66,7 +65,7 @@ export async function PUT(request: NextRequest) {
     const TestcaseNumber = await redis.get(token);
 
     if (!TestcaseNumber) {
-      console.log("Testcase not found");
+      // console.log("Testcase not found");
       const errorResponse: responseType = {
         message: "Response not found",
         success: "false",
@@ -93,7 +92,7 @@ export async function PUT(request: NextRequest) {
 
     const userResponse = JSON.parse(userDetail);
 
-    console.log(userResponse);
+    // console.log(userResponse);
     const successResponse: responseType = {
       message: "Callback success",
       success: "true",
@@ -102,14 +101,14 @@ export async function PUT(request: NextRequest) {
 
     // Read the output file as to compare the anwer for each testcase
     const outputFile = readOutputFiles(userResponse.problemTitle);
-    console.log("<-----outPutFile----->");
-    console.log(outputFile.response);
-    console.log(userResponse.problemTitle);
+    // console.log("<-----outPutFile----->");
+    // console.log(outputFile.response);
+    // console.log(userResponse.problemTitle);
     if (
       response.status.id === 4 &&
       response.status.description === "Wrong Answer"
     ) {
-      console.log("Wrong answer ");
+      // console.log("Wrong answer ");
 
       userResponse.cnt = 0;
       userResponse.error = true;
@@ -130,16 +129,16 @@ export async function PUT(request: NextRequest) {
         testcaseLength = 3;
       }
       const testCaseResult = Array(testcaseLength).fill(true);
-      console.log(output);
-      console.log(outputFile.response);
+      // console.log(output);
+      // console.log(outputFile.response);
 
       // if (output.length === outputFile.response.length) {
       for (let i = 0; i < testcaseLength; i++) {
-        console.log(output[i].trim(), " # ", outputFile.response[i].trim());
+        // console.log(output[i].trim(), " # ", outputFile.response[i].trim());
         if (output[i].trim() !== outputFile.response[i].trim()) {
           testCaseResult[i] = false;
           userResponse.status = "Wrong Answer";
-          console.log("value set to false");
+          // console.log("value set to false");
         }
       }
       // }
@@ -151,7 +150,7 @@ export async function PUT(request: NextRequest) {
       response.status.id === 3 &&
       response.status.description === "Accepted"
     ) {
-      console.log("Accepted");
+      // console.log("Accepted");
       userResponse.cnt = 0;
       userResponse.time = response.time;
       userResponse.memory = response.memory;
@@ -175,7 +174,7 @@ export async function PUT(request: NextRequest) {
           if (output[i].trim() !== outputFile.response[i].trim()) {
             testCaseResult[i] = false;
             userResponse.status = "Wrong Answer";
-            console.log("value set to false");
+            // console.log("value set to false");
           }
         }
       }
@@ -285,7 +284,7 @@ export async function PUT(request: NextRequest) {
     //   status: 200,
     // };
   } catch (err) {
-    console.log("Error in submission callback  route ", err);
+    // console.log("Error in submission callback  route ", err);
     const errorResponse: responseType = {
       message: "Internal server error while callback from judge0",
       success: "false",

@@ -90,10 +90,15 @@ export async function POST(req: NextRequest) {
     }
     const submissionDetail = await Submission.find({
       _id: data.submissionId,
-    }).populate({
-      path: "problemId",
-      select: "problemName problemTitle",
-    });
+    })
+      .populate({
+        path: "problemId",
+        select: "problemName problemTitle",
+      })
+      .select({
+        updatedAt: 0,
+        __v: 0,
+      });
 
     if (!submissionDetail) {
       const errResponse: responseType = {
@@ -111,8 +116,8 @@ export async function POST(req: NextRequest) {
     };
     return NextResponse.json(successResponse);
   } catch (err) {
-    console.log("err is " + err);
-    console.log(err);
+    // console.log("err is " + err);
+    // console.log(err);
     const errResponse: responseType = {
       success: "false",
       status: 500,
