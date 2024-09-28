@@ -50,7 +50,13 @@ export default function LoginPage() {
       // console.log(response.error);
       let error = response.error;
       error = error.replace("Error:", "");
-      toast.error(error);
+      toast.error(error, {
+        position: "top-center",
+        style: {
+          background: "#333",
+          color: "#fff",
+        },
+      });
       setLoading(false);
 
       return;
@@ -132,7 +138,11 @@ export default function LoginPage() {
                   Forgot Password?
                 </Link>
               </div>
-              <Button className="w-full" type="submit" disabled={loading}>
+              <Button
+                className="w-full hover:dark:bg-gray-200"
+                type="submit"
+                disabled={loading}
+              >
                 {loading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
@@ -148,7 +158,7 @@ export default function LoginPage() {
                 // TODO: Add google login
 
                 onClick={handleGoogleLogin}
-                className="google h-11 flex cursor-pointer border border-solid border-black bg-white text-black rounded px-6 py-1 hover:bg-black hover:text-white hover:border-white"
+                className="h-11 flex cursor-pointer border border-solid bg-black text-white dark:bg-white dark:text-black px-6 py-1 rounded  hover:dark:bg-gray-200"
               >
                 <div className="mr-4 mt-1 h-fit">Google</div>
                 <FcGoogle className="w-8 h-8" />
@@ -156,7 +166,7 @@ export default function LoginPage() {
               <div
                 // TODO: Add github login
                 onClick={handleGithubLogin}
-                className="github h-11 flex cursor-pointer border border-solid border-white bg-black text-white rounded px-6 py-1 hover:bg-white hover:text-black hover:border-black"
+                className="h-11 flex cursor-pointer border border-solid bg-black text-white dark:bg-white dark:text-black px-6 py-1 rounded hover:dark:bg-gray-200"
               >
                 <div className="mr-4 mt-1 h-fit">Github</div>
                 <FaSquareGithub className="w-8 h-8 cursor-pointer" />

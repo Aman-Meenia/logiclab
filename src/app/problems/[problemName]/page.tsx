@@ -82,11 +82,11 @@ const ProblemPage = async ({ params }: { params: { problemName: string } }) => {
       </div>
     );
   } else {
-    console.log("<------------------Description------------------->");
+    // console.log("<------------------Description------------------->");
     // console.log("Problem Description is " + problemDescription);
     // console.log(problemDescription);
 
-    console.log(problemDescription.defaultCode);
+    // console.log(problemDescription.defaultCode);
 
     const selectedProblem: problemContextType = {
       difficulty: problemDescription?.difficulty,

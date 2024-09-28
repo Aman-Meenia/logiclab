@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { submissionType } from "@/app/submissions/page";
 import axios from "axios";
+import Link from "next/link";
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -110,9 +111,11 @@ export default function DisplaySubmissions({
                   <TableCell className="font-medium">
                     {formatDate(submission.createdAt)}
                   </TableCell>
-                  <TableCell className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
-                    {submission.problemId.problemName}
-                  </TableCell>
+                  <Link href={`/submissions/${submission._id}`}>
+                    <TableCell className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
+                      {submission.problemId.problemName}
+                    </TableCell>
+                  </Link>
                   <TableCell className={getStatusColor(submission.status)}>
                     {submission.status}
                   </TableCell>
