@@ -1,0 +1,4 @@
+int countSubarry(vector<int> v, int p, int q) {
+    // Implementation goes here
+    
+}

@@ -1,0 +1,10 @@
+/**
+ * @param {number[] v, number p, number q} v, p, q
+ * @returns {number}
+ */
+
+
+let countSubarry = function (v, p, q) {
+    // Implementation goes here
+    
+}

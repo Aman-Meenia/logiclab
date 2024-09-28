@@ -1,0 +1,4 @@
+function countSubarry(v: number[], p: number, q: number) :number {
+    // Implementation goes here
+    
+}
