@@ -1,0 +1,4 @@
+function countSubarray(v: number[], k: number) :number {
+    // Implementation goes here
+    
+}
