@@ -3,11 +3,12 @@
 <img width="1416" alt="Screenshot 2024-10-01 at 5 39 39 PM" src="https://github.com/user-attachments/assets/13b497c9-bf5f-4719-af17-9adf41537dec">
 <img width="1416" alt="Screenshot 2024-10-01 at 5 40 35 PM" src="https://github.com/user-attachments/assets/e4cac0c0-60b1-4f1a-94d6-12cfa0a01522">
 <img width="1416" alt="Screenshot 2024-10-01 at 5 38 32 PM" src="https://github.com/user-attachments/assets/ffaf9da6-fe96-4d16-ac55-e621bba25fc8">
+<img width="1416" alt="Screenshot 2024-10-01 at 5 38 50 PM" src="https://github.com/user-attachments/assets/f42ff486-598c-4fe2-9ef6-dc06980d5cc9">
 <img width="1416" alt="Screenshot 2024-10-01 at 5 39 16 PM" src="https://github.com/user-attachments/assets/84ddc784-0038-4b09-a1e9-5a05e8daeb34">
 <img width="1416" alt="Screenshot 2024-10-01 at 5 39 28 PM" src="https://github.com/user-attachments/assets/8d14283b-3ff8-4273-8662-61ddd55b36d2">
 <img width="1416" alt="Screenshot 2024-10-01 at 5 46 38 PM" src="https://github.com/user-attachments/assets/c58b5cf4-c9f9-4298-87f9-30b5796702a1">
 <img width="1416" alt="Screenshot 2024-10-01 at 5 46 44 PM" src="https://github.com/user-attachments/assets/cf5f121d-3279-490e-8b8a-802875c8e4ad">
-<img width="1416" alt="Screenshot 2024-10-01 at 5 38 50 PM" src="https://github.com/user-attachments/assets/f42ff486-598c-4fe2-9ef6-dc06980d5cc9">
+
 
 
 # How to  add any new problem
