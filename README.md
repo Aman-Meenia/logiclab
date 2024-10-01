@@ -7,6 +7,7 @@
 <img width="1416" alt="Screenshot 2024-10-01 at 5 39 28 PM" src="https://github.com/user-attachments/assets/8d14283b-3ff8-4273-8662-61ddd55b36d2">
 <img width="1416" alt="Screenshot 2024-10-01 at 5 46 38 PM" src="https://github.com/user-attachments/assets/c58b5cf4-c9f9-4298-87f9-30b5796702a1">
 <img width="1416" alt="Screenshot 2024-10-01 at 5 46 44 PM" src="https://github.com/user-attachments/assets/cf5f121d-3279-490e-8b8a-802875c8e4ad">
+<img width="1416" alt="Screenshot 2024-10-01 at 5 38 50 PM" src="https://github.com/user-attachments/assets/f42ff486-598c-4fe2-9ef6-dc06980d5cc9">
 
 
 # How to  add any new problem
