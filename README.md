@@ -1,4 +1,8 @@
-# How to add any new problem
+
+
+<img width="1416" alt="Screenshot 2024-10-01 at 5 39 39 PM" src="https://github.com/user-attachments/assets/13b497c9-bf5f-4719-af17-9adf41537dec">
+
+# How to  add any new problem
 
 ## Step 1:
 
