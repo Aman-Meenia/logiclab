@@ -1,6 +1,8 @@
 
 
 <img width="1416" alt="Screenshot 2024-10-01 at 5 39 39 PM" src="https://github.com/user-attachments/assets/13b497c9-bf5f-4719-af17-9adf41537dec">
+<img width="1416" alt="Screenshot 2024-10-01 at 5 40 35 PM" src="https://github.com/user-attachments/assets/e4cac0c0-60b1-4f1a-94d6-12cfa0a01522">
+<img width="1416" alt="Screenshot 2024-10-01 at 5 38 32 PM" src="https://github.com/user-attachments/assets/ffaf9da6-fe96-4d16-ac55-e621bba25fc8">
 
 # How to  add any new problem
 
