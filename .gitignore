@@ -39,5 +39,6 @@ next-env.d.ts
 # compose.yaml
 # judge0.conf
 .env
+bun.lockb
 
 /boilerPlateGenerator/node_modules

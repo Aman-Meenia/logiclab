@@ -37,6 +37,7 @@ export type outputType = {
   stdout?: string;
   testCaseResult?: [boolean, boolean, boolean];
   compile_output?: string;
+  submissionType: "run" | "submit";
 };
 
 const Editor = ({

@@ -13,8 +13,6 @@ const RenderTestCaseOutput = ({
   testCaseInput: testCaseType;
   cases: testCaseType[];
 }) => {
-  // console.log("<----- Render output testcase -------->");
-  // console.log(testCaseInput);
   const [testCase, setTestCase] = useState<testCaseType[]>(cases);
   const [selectedTestcase, setSelectedTestCase] = useState<number>(1);
 
@@ -32,6 +30,7 @@ const RenderTestCaseOutput = ({
       time: "",
       memory: "",
       compile_output: "",
+      submissionType: "run",
     };
   }
   const getUserOutputValues = () => {
@@ -71,7 +70,11 @@ const RenderTestCaseOutput = ({
   return (
     <>
       {userCodeOutput?.status === "Accepted" ? (
-        <div className="pt-3 pl-3 text-xl text-green-400 ">Accepted</div>
+        <div className="pt-3 pl-3 text-xl text-green-400 ">
+          {userCodeOutput.submissionType === "run"
+            ? "Accepted"
+            : "Problem solved successfully"}
+        </div>
       ) : userCodeOutput?.status === "Wrong Answer" &&
         userCodeOutput.testCaseResult &&
         userCodeOutput?.testCaseResult[0] === true &&
