@@ -1,0 +1,21 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Add user function here
+
+int  main(){
+
+int tc= //Enter the exact testcase number ;
+while(tc--){
+string s; 
+cin >> s; 
+
+int ans = minLengthPeriod(s);
+
+cout<<ans<<endl;
+cout<<"$$$"<<endl;
+
+}
+return 0;
+}

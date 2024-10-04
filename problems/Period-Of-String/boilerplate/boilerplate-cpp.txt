@@ -1,0 +1,4 @@
+int minLengthPeriod(string s) {
+    // Implementation goes here
+    
+}
