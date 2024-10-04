@@ -1,0 +1,4 @@
+function minInsertions(s: string) :number {
+    // Implementation goes here
+    
+}

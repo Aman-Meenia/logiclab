@@ -1,0 +1,10 @@
+/**
+ * @param {string s} s
+ * @returns {number}
+ */
+
+
+let minLengthPeriod = function (s) {
+    // Implementation goes here
+    
+}

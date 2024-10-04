@@ -1,0 +1,10 @@
+/**
+ * @param {string s} s
+ * @returns {number}
+ */
+
+
+let minInsertions = function (s) {
+    // Implementation goes here
+    
+}

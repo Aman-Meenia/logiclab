@@ -1,4 +1,6 @@
 // Add problem to db
+ts-node problem.ts "../../../problems/Period-Of-String" "secret"
+ts-node problem.ts "../../../problems/Minimum-Numbers-Of-Insertion-To-Make-String-Palindrome" "secret"
 ts-node problem.ts "../../../problems/Count-The-Number-Of-Subarrays-With-The-Ratio-Of-Zeros-To-Ones-Equal-To-P-Ratio-Q" "secret"
 ts-node problem.ts "../../../problems/Count-Number-Of-Subarray-With-Sum-Less-Than-Or-Equal-K" "secret"
 ts-node problem.ts "../../../problems/Count-Number-Of-Subarray-With-And-Value-Equal-To-k" "secret"

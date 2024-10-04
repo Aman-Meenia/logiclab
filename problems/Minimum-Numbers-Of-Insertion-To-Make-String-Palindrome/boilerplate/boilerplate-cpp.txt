@@ -1,0 +1,4 @@
+int minInsertions(string s) {
+    // Implementation goes here
+    
+}

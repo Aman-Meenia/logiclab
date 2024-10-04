@@ -1,0 +1,4 @@
+function minLengthPeriod(s: string) :number {
+    // Implementation goes here
+    
+}
