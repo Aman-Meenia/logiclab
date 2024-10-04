@@ -45,7 +45,7 @@ export default function SubmissionTable({
           </TableHeader>
           <TableBody>
             {submissions?.map((entry: submissionType) => (
-              <TableRow key={entry.memory}>
+              <TableRow key={entry.createdAt}>
                 <TableCell>{entry.language}</TableCell>
                 <TableCell>{entry.time} ms</TableCell>
                 <TableCell>{entry.memory}</TableCell>

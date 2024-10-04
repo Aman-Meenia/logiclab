@@ -100,7 +100,9 @@ const CodeEditorHeader = ({
                 res?.data?.messages[0]?.status === "Runtime Error (NZEC)" ||
                 res?.data?.messages[0]?.status === "Time Limit Exceeded"
               ) {
-                setUserCodeOutput(res.data.messages[0]);
+                const submissionresponse: outputType = res.data.messages[0];
+                submissionresponse.submissionType = flagIs;
+                setUserCodeOutput(submissionresponse);
                 return res.data;
               }
             }
